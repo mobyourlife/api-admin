@@ -1,0 +1,7 @@
+{
+  "name": "api-admin",
+  "version": "5.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:mobyourlife/api-admin.git",
+  "author": "Filipe Oliveira <contato@fmoliveira.com.br>"
+}
