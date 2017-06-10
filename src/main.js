@@ -1,5 +1,6 @@
 import Hapi from 'hapi'
 import winston from 'winston'
+import getAllRoutes from './utils/get-all-routes'
 
 const logger = new winston.Logger({
   transports: [
@@ -16,6 +17,11 @@ server.connection({
   routes: {
     cors: true
   }
+})
+
+getAllRoutes().forEach(route => {
+  logger.info(`Registered route ${route.method} ${route.path}`)
+  server.route(route)
 })
 
 server.start(() => {
