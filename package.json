@@ -9,8 +9,12 @@
   "repository": "git@github.com:mobyourlife/api-admin.git",
   "author": "Filipe Oliveira <contato@fmoliveira.com.br>",
   "dependencies": {
+    "boom": "^5.1.0",
     "glob": "^7.1.2",
     "hapi": "^16.4.3",
+    "hapi-auth-jwt": "^4.0.0",
+    "joi": "^10.5.2",
+    "jsonwebtoken": "^7.4.1",
     "winston": "^2.3.1"
   },
   "devDependencies": {

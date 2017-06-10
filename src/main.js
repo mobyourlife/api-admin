@@ -1,14 +1,15 @@
 import Hapi from 'hapi'
+import Jwt from 'hapi-auth-jwt'
 import winston from 'winston'
 import getAllRoutes from './utils/get-all-routes'
+
+import config from './config'
 
 const logger = new winston.Logger({
   transports: [
     new winston.transports.Console({level: 'silly'})
   ]
 })
-
-const connectionString = process.env.MOB_MONGODB_URL || 'mongodb://localhost:27017/mobyourlife'
 
 const server = new Hapi.Server()
 server.connection({
@@ -19,9 +20,20 @@ server.connection({
   }
 })
 
-getAllRoutes().forEach(route => {
-  logger.info(`Registered route ${route.method} ${route.path}`)
-  server.route(route)
+server.register([Jwt], (err) => {
+  if (err) {
+    throw err
+  }
+
+  server.auth.strategy('jwt', 'jwt', 'required', {
+    key: config.jwtSecret,
+    verifyOptions: {algorithms: ['HS256']}
+  })
+
+  getAllRoutes().forEach(route => {
+    server.route(route)
+    logger.info(`Registered route ${route.method} ${route.path}`)
+  })
 })
 
 server.start(() => {
