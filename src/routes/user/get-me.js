@@ -2,8 +2,13 @@ export default {
   method: 'GET',
   path: '/me',
   config: {
+    auth: {
+      strategy: 'jwt'
+    },
     handler: (req, res) => {
-      res({})
+      res({
+        username: 'myself'
+      })
     }
   }
 }
